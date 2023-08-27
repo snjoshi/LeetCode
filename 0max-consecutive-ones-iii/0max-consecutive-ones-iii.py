@@ -16,12 +16,8 @@ class Solution:
             elif nums[right]==0 and count<k:
                 count+=1
             
-            print("left:",left)
-            print("right:",right)
-            print("count:",count)
-            
             size = max(size,right-left+1)
-            print(size)
+
             
         return size
             
