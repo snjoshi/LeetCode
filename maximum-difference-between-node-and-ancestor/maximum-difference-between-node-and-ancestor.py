@@ -4,27 +4,30 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+'''
+start: root
+max abs of a and b
+'''
 class Solution:
     def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
-
         if not root:
             return 0
 
-        self.result=0
+        self.diff = 0
 
-        def dfs(node, curr_min, curr_max):
+        def dfs(node, cmax, cmin):
             if not node:
                 return
+
+            cmax=max(cmax, node.val)
+            cmin=min(cmin,node.val)
+            self.diff=max(self.diff, abs(cmax - node.val),abs(cmin -node.val))
+            dfs(node.left,cmax, cmin)
+            dfs(node.right,cmax, cmin)
+
+        dfs(root, root.val, root.val)
+
+        return self.diff
             
-            self.result=max(self.result, abs(curr_max - node.val), abs(curr_min - node.val))
-            curr_min=min(node.val, curr_min)
-            curr_max=max(node.val, curr_max)
 
-            dfs(node.left,curr_min, curr_max)
-            dfs(node.right,curr_min, curr_max)
-
-            return self.result
         
-        dfs(root,root.val,root.val)
-
-        return self.result
