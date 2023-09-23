@@ -6,13 +6,28 @@
 #         self.right = right
 class Solution:
     def closestValue(self, root: Optional[TreeNode], target: float) -> int:
-        node = root.val
-        while root:
-            node = min(root.val, node, key = lambda x: (abs(target - x), x))
-            
-            if target < root.val:
-                root=root.left
-            else:
-                root= root.right
+        if not root:
+            return 0
+        
+        minN=float("inf")
+        ans=0
+        nodes=[]
+        def dfs(node):
+            if not node:
+                return 
 
-        return node
+            dfs(node.left)
+            nodes.append(node.val)
+            dfs(node.right)
+
+        dfs(root)
+        print(nodes)
+        final=0
+        for i in nodes:
+            if minN > abs(i-target):
+                minN=abs(i-target)
+                final = i
+
+        return final
+        
+                
