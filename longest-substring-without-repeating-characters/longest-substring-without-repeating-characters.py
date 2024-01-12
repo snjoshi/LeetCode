@@ -1,20 +1,26 @@
+from collections import defaultdict
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-    
-        sliding_set=set()
         left=0
-        count=0
+        right=0
+        dict1=defaultdict(int)
+        ans=0
         
-        for i in s:
-            while i in sliding_set:
-                sliding_set.remove(s[left])
+        while right < len(s):
+            dict1[s[right]]+=1
+            while dict1[s[right]]>1:
+                dict1[s[left]]-=1
                 left+=1
                 
-            sliding_set.add(i)
-            count=max(count,len(sliding_set))
+            ans=max(ans,right-left+1)
+            right+=1
             
-            
-        return count
-    
-    
+        return ans
+
+
+
+
         
+
+
+
